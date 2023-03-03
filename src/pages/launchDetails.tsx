@@ -6,12 +6,15 @@ import { useParams } from 'react-router-dom';
 import useFetch from '../hooks/useFetch';
 import Loader from '../components/loader';
 import { UseFetchProps } from '../types';
+import dateFormatter from '../utils/dateFormatter';
+import ErrorPage from './404';
 
 const LaunchDetails = () => {
   //get id from route
   const { id } = useParams();
 
   const {callApi, data, error, isLoading}: UseFetchProps = useFetch(`launches/${id}`);
+  console.log(error);
 
   useEffect(() => {
     callApi();
@@ -28,6 +31,11 @@ const LaunchDetails = () => {
           loading={isLoading}
         />
       )}
+
+      {error && (
+        <ErrorPage />
+      )}
+
       {data && (
         <Box
           mt="16px"
@@ -53,7 +61,7 @@ const LaunchDetails = () => {
             <GridItem>
               <DataDisplayBox
                 data='Date'
-                dataDetail={data.date_utc ?? 'N/A'}
+                dataDetail={data.date_utc ? dateFormatter(data.date_utc) : 'N/A'}
               />
             </GridItem>
             <GridItem>
@@ -82,7 +90,7 @@ const LaunchDetails = () => {
               </GridItem>
               <GridItem>
                 <DataDisplayBox
-                  data='Recovrye Attempt'
+                  data='RecoveryAttempt'
                   dataDetail={data.fairings.recovery_attempt}
                 />
               </GridItem>
@@ -115,14 +123,14 @@ const LaunchDetails = () => {
               <GridItem>
                 <DataDisplayBox
                   data='Patch'
-                  dataDetail={data.links.patch.large}
+                  dataDetail={data.links.patch.large ?? 'N/A'}
                   type="link"
                 />
               </GridItem>
               <GridItem>
                 <DataDisplayBox
                   data='Reddit'
-                  dataDetail={data.links.reddit.launch}
+                  dataDetail={data.links.reddit.launch ?? 'N/A'}
                   type="link"
                 />
               </GridItem>
@@ -139,28 +147,28 @@ const LaunchDetails = () => {
               <GridItem>
                 <DataDisplayBox
                   data='Presskit'
-                  dataDetail={data.links.presskit}
+                  dataDetail={data.links.presskit ?? 'N/A'}
                   type="link"
                 />
               </GridItem>
               <GridItem>
                 <DataDisplayBox
                   data='Webcast'
-                  dataDetail={data.links.webcast}
+                  dataDetail={data.links.webcast ?? 'N/A'}
                   type="link"
                 />
               </GridItem>
               <GridItem>
                 <DataDisplayBox
                   data='Article'
-                  dataDetail={data.links.article}
+                  dataDetail={data.links.article ?? 'N/A'}
                   type="link"
                 />
               </GridItem>
               <GridItem colSpan={3}>
                 <DataDisplayBox
                   data='Wikipedia'
-                  dataDetail={data.links.wikipedia}
+                  dataDetail={data.links.wikipedia ?? 'N/A'}
                   type="link"
                 />
               </GridItem>
@@ -173,7 +181,7 @@ const LaunchDetails = () => {
             <GridItem>
               <DataDisplayBox
                 data='Static Fire Date'
-                dataDetail={data.static_fire_date_utc ?? 'N/A'}
+                dataDetail={data.static_fire_date_utc ? dateFormatter(data.static_fire_date_utc) : 'N/A'}
               />
             </GridItem>
             <GridItem>
@@ -228,24 +236,6 @@ const LaunchDetails = () => {
                     </GridItem>
                   </Grid>
                 ))}
-                <GridItem>
-                  <DataDisplayBox
-                    data='Recovrye Attempt'
-                    dataDetail={data.fairings.recovery_attempt}
-                  />
-                </GridItem>
-                <GridItem>
-                  <DataDisplayBox
-                    data='Recoverd'
-                    dataDetail={data.fairings.recovered}
-                  />
-                </GridItem>
-                <GridItem>
-                  <DataDisplayBox
-                    data='Ships'
-                    dataDetail={data.fairings.ships.join()}
-                  />
-                </GridItem>
             </Box>
           )}
           <Grid

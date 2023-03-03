@@ -19,18 +19,20 @@ const useFetch = (endpoint: Endpoint) => {
     }))
 
     await fetch(`${API_URL}${endpoint}`)
-    .then(res => res.json())
+    .then(res => {
+      if(res.status !== 200) {
+        setFetchData(prev => ({
+          ...prev,
+          error: "Not found"
+        }))
+        return;
+      }
+      return res.json()
+    })
     .then(result => {
-      console.log(result);
       setFetchData(prev => ({
         ...prev,
         data: result
-      }))
-    })
-    .catch(e => {
-      setFetchData(prev => ({
-        ...prev,
-        error: e
       }))
     })
     .finally(() => {

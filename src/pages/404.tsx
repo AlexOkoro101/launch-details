@@ -1,18 +1,35 @@
 import React from 'react';
-import { useRouteError } from 'react-router-dom';
-import { Box } from '@chakra-ui/react'
+import { Link, useRouteError } from 'react-router-dom';
+import { Box, Button, Heading, Text } from '@chakra-ui/react'
 
 const ErrorPage = () => {
   const error: any = useRouteError();
-  console.error(error);
 
   return (
-    <Box>
-        <h1>Oops! Page not found</h1>
-        <p>Sorry the route you are looking for does not exist.</p>
-       <p>
-        <i>{error.statusText || error.message}</i>
-      </p>
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      height="calc(100vh - 120px)"
+    >
+      <Box textAlign="center">
+        <Heading>Oops! Page not found</Heading>
+        <Text>Sorry the route you are looking for does not exist.</Text>
+        {error && (
+          <p>
+            <i>{error.statusText || error.message}</i>
+          </p>
+        )}
+
+        <Button
+          variant="outline"
+          color="primary.100"
+        >
+          <Link to="/">
+            Go back home
+          </Link>
+        </Button>
+      </Box>
     </Box>
   );
 };

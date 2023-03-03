@@ -6,6 +6,7 @@ import useFetch from '../hooks/useFetch';
 import Loader from '../components/loader';
 import ReactPaginate from 'react-paginate';
 import { UseFetchProps } from '../types';
+import ErrorPage from './404';
 
 
 const Launches = () => {
@@ -54,6 +55,10 @@ const Launches = () => {
             <Loader 
               loading={isLoading}
             />
+          )}
+
+          {error && (
+            <ErrorPage />
           )}
 
           {data && (

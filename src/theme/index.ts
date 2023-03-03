@@ -35,7 +35,7 @@ const styles = {
 };
 
 const fonts = {
-  body: 'Lato, sans-serif'
+  body: '`Lato`, sans-serif'
 };
 
 const theme = extendTheme({
