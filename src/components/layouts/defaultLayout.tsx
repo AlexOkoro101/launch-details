@@ -18,12 +18,14 @@ const DefaultLayout = () => {
   return (
     <Box
       sx={{
-        backgroundImage: `url('https://images.unsplash.com/photo-1614728263952-84ea256f9679?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1908&q=80')`,
+        background: getVariation() === 'transparent' ? 
+        `url('https://images.unsplash.com/photo-1614728263952-84ea256f9679?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1908&q=80')` : 
+        "white",
         pos: "relative"
       }}
     >
       <Box
-        backgroundColor="rgba(0,0,0,.7)"
+        backgroundColor={getVariation() === 'transparent' ? "rgba(0,0,0,.7)" : "transparent"}
         pos="relative"
         width="100%"
         height="100%"

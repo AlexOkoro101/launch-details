@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { HStack, Text } from '@chakra-ui/react';
+import { HStack, Link, Text } from '@chakra-ui/react';
 import { NavbarProps } from '../types';
 
 const Navbar: FC<NavbarProps> = ({ variation }) => {
@@ -8,20 +8,25 @@ const Navbar: FC<NavbarProps> = ({ variation }) => {
       justifyContent="space-between"
       alignItems="center"
       h="16"
-      backgroundColor={variation === 'transparent' ? 'color.primary' : 'transparent'}
+      backgroundColor={variation === 'transparent' ? 'transparent' : 'primary.100'}
       px="16"
       position="fixed"
       top="0"
       left="0"
       width="100%"
+      zIndex={50}
     >
-      <Text
+      <Link
+        href='/'
         fontSize="3xl"
         color="white"
         textTransform="uppercase"
+        _hover={{
+          textDecoration: "none"
+        }}
       >
         Lauch Data
-      </Text>
+      </Link>
       <Text
         color="white"
         fontSize="md"

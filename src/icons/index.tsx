@@ -1,4 +1,7 @@
-export const RocketIcon = () => {
+import { FC } from "react";
+import { IconProps } from "../types";
+
+export const RocketIcon: FC<IconProps> = ({ size }) => {
   return (
     <svg 
       fill="#fff" 
@@ -6,7 +9,7 @@ export const RocketIcon = () => {
       id="Capa_1" 
       xmlns="http://www.w3.org/2000/svg" 
       xmlnsXlink="http://www.w3.org/1999/xlink" 
-      width="30px" height="30px" 
+      width={size ? size : "30px"} height={size ? size : "30px"}
       viewBox="0 0 230.942 230.942" 
       xmlSpace="preserve" 
       stroke="#fff"

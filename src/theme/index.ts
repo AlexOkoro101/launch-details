@@ -11,13 +11,37 @@ const colors = {
   }
 };
 
+const styles = {
+  global: {
+    '.pagination': {
+      display: 'flex',
+      gap: '1rem',
+    },
+    '.pagination li': {
+      listStyle: 'none'
+    },
+    '.page-number': {
+      color: '#808080',
+      fontSize: '14px',
+      lineHeight: '21px',
+    },
+    '.active-link': {
+      padding: '2px 6px',
+      backgroundColor: 'primary.100',
+      color: '#fff',
+      borderRadius: '3px',
+    }
+  }
+};
+
 const fonts = {
   body: 'Lato, sans-serif'
 };
 
 const theme = extendTheme({
   colors,
-  fonts
+  fonts,
+  styles
 })
 
 export default theme;
