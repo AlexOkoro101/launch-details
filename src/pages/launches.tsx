@@ -7,10 +7,30 @@ import Loader from '../components/loader';
 import ReactPaginate from 'react-paginate';
 import { UseFetchProps } from '../types';
 import ErrorPage from './404';
+import { useLocation } from 'react-router-dom';
 
 
 const Launches = () => {
-  const {callApi, isLoading, data, error}: UseFetchProps = useFetch('launches');
+  const location = useLocation();
+
+  //get query params from location
+  const {startDate, endDate } = location.state;
+
+  //query object to fetch
+  const payload = {
+    query: {
+      date_utc: {
+        $gte: new Date(startDate).toISOString(),
+        $lte: new Date(endDate).toISOString()
+      }
+   }
+  }
+
+  const {callApi, data, error, isLoading}: UseFetchProps = useFetch({
+    endpoint: `launches/query`,
+    method: 'POST',
+    body: JSON.stringify(payload)
+  });
 
   //pagination data
   const [paginationData, setPaginationData] = useState({
@@ -20,10 +40,10 @@ const Launches = () => {
 
   const indexOfLastPost = paginationData.currentPage * paginationData.itemsPerPage;
   const indexOfFirstPost = indexOfLastPost - paginationData.itemsPerPage;
-  const currentItems = data?.slice(indexOfFirstPost, indexOfLastPost);
+  const currentItems = data?.docs.slice(indexOfFirstPost, indexOfLastPost);
 
   //page count
-  const pageCount = Math.ceil(data?.length / paginationData.itemsPerPage);
+  const pageCount = Math.ceil(data?.docs.length / paginationData.itemsPerPage);
 
   //fetch all lauches
   useEffect(() => {
@@ -61,7 +81,7 @@ const Launches = () => {
             <ErrorPage />
           )}
 
-          {data && (
+          {data?.docs.length >= 1 ? (
             <VStack spacing={10}>
               <VStack
                 spacing={5}
@@ -92,6 +112,8 @@ const Launches = () => {
                 renderOnZeroPageCount={undefined}
               />
             </VStack>
+          ) : (
+            <ErrorPage />
           )}
         </Box>
     </Box>

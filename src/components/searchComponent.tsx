@@ -1,8 +1,11 @@
-import { Box, Button, Divider, HStack } from '@chakra-ui/react';
+import { Button, Divider, HStack } from '@chakra-ui/react';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import DefaultInput from './common/defaultInput';
 
 const SearchComponent = () => {
+  const navigate = useNavigate();
+
   //state for search data
   const [searchData, setSearchData] = useState({
     startDate: '',
@@ -10,10 +13,23 @@ const SearchComponent = () => {
   });
 
   //function to handle input change
-  const handleChange = () => {
-
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value} = e.target;
+    setSearchData(prev => ({
+      ...prev,
+      [name]: value
+    }))
   };
 
+  //function to navigate to launch listing
+  const handleSearch = () => {
+    navigate('/launches', {
+      state: {
+        startDate: searchData.startDate,
+        endDate: searchData.endDate
+      }
+    })
+  }
 
   return (
     <HStack
@@ -31,19 +47,14 @@ const SearchComponent = () => {
     >
       <DefaultInput 
         name="startDate"
-        type="date"
-        value={searchData.startDate}
+        type="text"
         onChange={handleChange}
         placeholder="Start date"
-        // sx={{
-        //   flex: 1
-        // }}
       />
 
       <DefaultInput 
         name="endDate"
-        type="date"
-        value={searchData.endDate}
+        type="text"
         onChange={handleChange}
         placeholder="End date"
       />
@@ -53,6 +64,7 @@ const SearchComponent = () => {
         bg="primary.100"
         size='lg'
         width="20%"
+        onClick={() => handleSearch()}
       >
         Search
       </Button>

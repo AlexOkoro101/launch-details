@@ -25,7 +25,7 @@ const Navbar: FC<NavbarProps> = ({ variation }) => {
           textDecoration: "none"
         }}
       >
-        Lauch Data
+        Launch Data
       </Link>
       <Text
         color="white"

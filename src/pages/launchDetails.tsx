@@ -13,8 +13,10 @@ const LaunchDetails = () => {
   //get id from route
   const { id } = useParams();
 
-  const {callApi, data, error, isLoading}: UseFetchProps = useFetch(`launches/${id}`);
-  console.log(error);
+  const {callApi, data, error, isLoading}: UseFetchProps = useFetch({
+    endpoint: `launches/${id}`,
+    method: 'GET'
+  });
 
   useEffect(() => {
     callApi();
@@ -85,25 +87,25 @@ const LaunchDetails = () => {
               <GridItem>
                 <DataDisplayBox
                   data='Reused'
-                  dataDetail={data.fairings.reused}
+                  dataDetail={data?.fairings?.reused}
                 />
               </GridItem>
               <GridItem>
                 <DataDisplayBox
                   data='RecoveryAttempt'
-                  dataDetail={data.fairings.recovery_attempt}
+                  dataDetail={data?.fairings?.recovery_attempt}
                 />
               </GridItem>
               <GridItem>
                 <DataDisplayBox
                   data='Recoverd'
-                  dataDetail={data.fairings.recovered}
+                  dataDetail={data?.fairings?.recovered}
                 />
               </GridItem>
               <GridItem colSpan={3}>
                 <DataDisplayBox
                   data='Ships'
-                  dataDetail={data.fairings.ships.length >= 1 ? data.fairings.ships.join() : 'N/A'}
+                  dataDetail={data?.fairings?.ships.length >= 1 ? data?.fairings?.ships.join() : 'N/A'}
                 />
               </GridItem>
             </Grid>

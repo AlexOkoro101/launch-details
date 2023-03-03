@@ -1,8 +1,8 @@
 import { useState } from "react"
 import { API_URL } from "../enviroment";
-import { Endpoint, FetchDataProps } from "../types";
+import { Endpoint, FetchDataProps, FetchProps } from "../types";
 
-const useFetch = (endpoint: Endpoint) => {
+const useFetch = ({endpoint, method, body}: FetchProps) => {
   const [fetchData, setFetchData] = useState<FetchDataProps>({
     isLoading: false,
     error: null,
@@ -18,7 +18,10 @@ const useFetch = (endpoint: Endpoint) => {
       isLoading: true
     }))
 
-    await fetch(`${API_URL}${endpoint}`)
+    await fetch(`${API_URL}${endpoint}`, {
+      method: method,
+      body: body
+    })
     .then(res => {
       if(res.status !== 200) {
         setFetchData(prev => ({

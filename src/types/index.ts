@@ -1,3 +1,5 @@
+import { InputProps } from "@chakra-ui/react";
+
 export interface NavbarProps {
   variation: 'transparent' | 'solid'
 }
@@ -26,6 +28,12 @@ export interface FetchDataProps {
   isLoading: boolean;
   error: any;
   data: Record<string, any> | null;
+}
+
+export interface FetchProps {
+  endpoint: Endpoint;
+  method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
+  body?: BodyInit | null | undefined;
 }
 
 export interface UseFetchProps extends FetchDataProps {

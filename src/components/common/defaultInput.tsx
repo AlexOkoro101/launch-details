@@ -1,5 +1,5 @@
 import { Input, InputProps } from "@chakra-ui/react";
-import { FC } from "react";
+import { FC, useRef } from "react";
 
 const DefaultInput: FC<InputProps> = ({
   type,
@@ -7,10 +7,13 @@ const DefaultInput: FC<InputProps> = ({
   onChange,
   value,
   name,
-  sx
+  sx,
  }) => {
+  const ref = useRef<any>();
+
   return (
     <Input
+      ref={ref}
       type={type}
       placeholder={placeholder}
       onChange={onChange}
@@ -18,6 +21,8 @@ const DefaultInput: FC<InputProps> = ({
       name={name}
       variant="unstyled"
       sx={sx}
+      onFocus={() => (ref.current.type = "date")}
+      onBlur={() => (ref.current.type = "date")}
     />
   )
 }
