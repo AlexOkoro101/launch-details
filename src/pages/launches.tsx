@@ -8,6 +8,7 @@ import ReactPaginate from 'react-paginate';
 import { UseFetchProps } from '../types';
 import ErrorPage from './404';
 import { useLocation } from 'react-router-dom';
+import EmptyState from '../components/emptyState';
 
 
 const Launches = () => {
@@ -113,7 +114,7 @@ const Launches = () => {
               />
             </VStack>
           ) : (
-            <ErrorPage />
+            <EmptyState />
           )}
         </Box>
     </Box>
